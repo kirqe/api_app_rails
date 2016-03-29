@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
-  before (:each) { request.headers['Accept'] = "application/vnd.marketplace.v1"  }
+  before(:each) { request.headers['Accept'] = "application/vnd.marketplace.v1, #{Mime::JSON}" }
 
   describe "GET #show" do
 
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it "renders the json representation for the user record just created" do
-        user_response = JSON.parse(response.body, symbolize_names: true)
+        user_response = json_response
         expect(user_response[:email]).to eql @user_attributes[:email]
       end
 
