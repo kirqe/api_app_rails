@@ -66,7 +66,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       it "renders the json representation for the updated user" do
         user_response = JSON.parse(response.body, symbolize_names: true)
-        expect(user_response[:email]).to eql "newmail@example.com"
+        expect(user_response[:email]).to eq "newmail@example.com"
       end
 
       it { should respond_with 200 }
