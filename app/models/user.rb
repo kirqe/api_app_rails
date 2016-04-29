@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   before_create :generate_authenticaion_token!
   has_many :products, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
 
   def generate_authenticaion_token!
