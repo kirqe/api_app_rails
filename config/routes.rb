@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
       resources :sessions, only: [:create, :destroy]
       resources :products, only: [:show, :index]
+      resources :orders, :only => [:index]
     end
   end
 end
