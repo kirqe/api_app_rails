@@ -10,15 +10,36 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
       get :index
     end
 
-    it "returns 4 records from database" do
-      products_response = json_response
-      expect(products_response[:products].count).to eq 4
+    context "when is not receiving any product_ids parameter" do
+      before(:each) do
+        get :index
+      end
+
+      it "returns 4 records from database" do
+        products_response = json_response
+        expect(products_response[:products].count).to eq 4
+      end
+
+      it "returns the user object into each product" do
+        products_response = json_response[:products]
+        products_response.each do |product_response|
+          expect(product_response[:user]).to be_present
+        end
+      end
     end
 
-    it "returns the user object into each product" do
-      products_response = json_response[:products]
-      products_response.each do |product_response|
-        expect(product_response[:user]).to be_present
+    context "when product_ids parameter is sent" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        3.times { FactoryGirl.create :product, user: @user }
+        get :index, product_ids: @user.product_ids
+      end
+
+      it "return just products that belong to the user" do
+        product_response = json_response[:products]
+        product_response.each do |product_response|
+          expect(product_response[:user][:email]).to eq @user.email
+        end
       end
     end
 
