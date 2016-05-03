@@ -9,7 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'active_model_serializers', git: 'git@github.com:rails-api/active_model_serializers.git', branch: '0-8-stable'
-
+gem 'delayed_job_active_record'
 
 group :development, :test do
   gem 'byebug'
